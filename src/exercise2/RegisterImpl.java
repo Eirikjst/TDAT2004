@@ -105,7 +105,7 @@ class RegisterImpl extends UnicastRemoteObject implements Register {
 			return false;
 	}
 
-	public int endreLagerbeholdning(int nr, int mengde) throws RemoteException {
+	public synchronized int endreLagerbeholdning(int nr, int mengde) throws RemoteException {
 		int indeks = finnUtstyrindeks(nr);
 		if (indeks < 0)
 			return ugyldigNr;
@@ -126,7 +126,7 @@ class RegisterImpl extends UnicastRemoteObject implements Register {
 		return -1;
 	}
 
-	public String lagBestillingsliste() throws RemoteException {
+	public synchronized String lagBestillingsliste() throws RemoteException {
 		String resultat = "\n\nBestillingsliste:\n";
 		for (int i = 0; i < registeret.size(); i++) {
 			Utstyr u = registeret.get(i);
@@ -135,7 +135,7 @@ class RegisterImpl extends UnicastRemoteObject implements Register {
 		return resultat;
 	}
 
-	public String lagDatabeskrivelse() throws RemoteException {
+	public synchronized String lagDatabeskrivelse() throws RemoteException {
 		String resultat = "Alle data:\n";
 		for (int i = 0; i < registeret.size(); i++) {
 			resultat += (registeret.get(i)).toString() + "\n";
